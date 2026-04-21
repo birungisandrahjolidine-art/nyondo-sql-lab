@@ -1,0 +1,5 @@
+
+EXPLANATION (Question 5 answer):
+[Your 3-5 sentence explanation here]
+Example: "Using ? placeholders prevents SQL injection because the database treats user input as data, not as executable code. With template literals (f-strings in Python), user input becomes part of the SQL statement structure. With parameterised queries, the database separates the query logic from the data values. The ? placeholders are replaced with safely escaped values that cannot change the query's structure. This means even if an attacker types malicious SQL, it gets treated as a string literal, not as commands."
+
