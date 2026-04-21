@@ -36,4 +36,30 @@ console.table(rows);
 
 console.log(`\nTotal products: ${rows.length}`);
 
+// Add users table (add this BEFORE db.close() in setup.js)
+db.exec(`
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL,
+        password TEXT NOT NULL,
+        role TEXT DEFAULT 'attendant'
+    )
+`);
+
+// Insert users
+const insertUser = db.prepare('INSERT OR IGNORE INTO users (username, password, role) VALUES (?, ?, ?)');
+const users = [
+    ['admin', 'admin123', 'admin'],
+    ['fatuma', 'pass456', 'attendant'],
+    ['wasswa', 'pass789', 'manager']
+];
+
+for (const user of users) {
+    insertUser.run(user[0], user[1], user[2]);
+}
+
+// Verify users
+console.log('\n=== Users Table ===');
+console.table(db.prepare('SELECT * FROM users').all());
+
 db.close();
